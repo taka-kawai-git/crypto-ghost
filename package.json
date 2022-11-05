@@ -8,9 +8,7 @@
     "three": "^0.146.0",
     "web3": "^1.8.0"
   },
-  "devDependencies": {
-    "gh-pages": "^4.0.0"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "predeploy": "npm run build",
