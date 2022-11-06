@@ -44,8 +44,8 @@
             <svg id="header-icon" class="me-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M50.8 452.1L19.2 477.4c-2.1 1.7-4.7 2.6-7.4 2.6C5.3 480 0 474.7 0 468.2V192C0 86 86 0 192 0S384 86 384 192V468.2c0 6.5-5.3 11.8-11.8 11.8c-2.7 0-5.3-.9-7.4-2.6l-31.6-25.3c-3.3-2.7-7.5-4.1-11.8-4.1c-5.9 0-11.5 2.8-15 7.5l-37.6 50.1c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4l-38.4-51.2c-3-4-7.8-6.4-12.8-6.4s-9.8 2.4-12.8 6.4l-38.4 51.2c-3 4-7.8 6.4-12.8 6.4s-9.8-2.4-12.8-6.4L77.6 455.5c-3.6-4.7-9.1-7.5-15-7.5c-4.3 0-8.4 1.5-11.7 4.1zM160 192c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm96 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z"/></svg>
             <strong>CryptoGhost</strong>
           </a>
-          <button id="connectWallet" class="btn btn-primary" type="button">
-            <span class="">Meta</span>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
         </div>
       </div>
@@ -104,7 +104,6 @@
     <script language="javascript" type="text/javascript" src="node_modules/three/build/three.js"></script>
     <script language="javascript" type="text/javascript" src="node_modules/three/examples/js/loaders/OBJLoader.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script language="javascript" type="text/javascript" src="node_modules/three/examples/js/loaders/MTLLoader.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script language="javascript" type="text/javascript" src="node_modules/@metamask/detect-provider/dist/detect-provider.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script language="javascript" type="text/javascript" src="obj-loader.js"></script>
     <script language="javascript" type="text/javascript" src="api-wrapper.js"></script>
     <script language="javascript" type="text/javascript" src="DecodeObjTestAbi.js"></script>
@@ -114,49 +113,24 @@
       var abiWrapper;
 
       $(document).ready(function() {
-        
-        // -------- register click event to open metamask --------
-        $('#connectWallet').click(function(){
-          if (typeof window.ethereum !== 'undefined') {
-            ethereum.request({ method: 'eth_requestAccounts' })
-            .then(async (result) => {
-              console.log('222');
-              var provider = await detectEthereumProvider();
-              abiWrapper = new AbiWrapper("0x398FF2F6fcf73eF5255d8580942b294D12911c2d", provider);
-              console.log('777');
-              abiWrapper.getGhosts().then(function(ghosts) {
-                console.log('888');
-                appendItems(ghosts);
-                console.log('999');
-              });
-            })
-          } else {
-            $("#message").text("Please install MetaMask");
-          }
-        });
-
-        // -------- register submit event to write ghost --------
+        // abiWrapper = new AbiWrapper("0x398FF2F6fcf73eF5255d8580942b294D12911c2d");
         $('form').submit(function() {
           if(!$('#input-name').val().length) {
+            console.log('aaaaa');
             $('#message').text("Please input Ghost name!");
           }
+          console.log('bbbbb');
           abiWrapper.mintGhost($('#input-name').val(), $('#input-description').val(), "", 12);
+          console.log('ccccc');
         });
       });
 
-      console.log('111');
-
-      // // var web3 = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/b8f4303a7a1a494b8139d61c5556905d"));
-      // console.log('222');
-      // // .then(function(result) {
-      //   abiWrapper = new AbiWrapper("0x398FF2F6fcf73eF5255d8580942b294D12911c2d", web3);
-      //   console.log('777');
-      //   abiWrapper.getGhosts().then(function(ghosts) {
-      //     console.log('888');
-      //     appendItems(ghosts);
-      //     console.log('999');
-      // });
-      // }));
+      abiWrapper = new AbiWrapper("0x398FF2F6fcf73eF5255d8580942b294D12911c2d");
+      abiWrapper.getGhosts().then(function(ghosts) {
+        console.log('66666');
+        appendItems(ghosts);
+        console.log('77777');
+      });
 
       // appendItems([1, 2, 3, 4]);
 
